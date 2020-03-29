@@ -1,0 +1,9 @@
+.vscode/
+oscillator.py
+__pycache__/
+data/
+results*/
+*.png
+*.npy
+*.tar
+*~
