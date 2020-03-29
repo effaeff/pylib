@@ -10,6 +10,15 @@ def to_local_dir(filehandle):  # needs __file__ from caller
     """Change to local workspace for runtime stuff"""
     os.chdir(os.path.dirname(os.path.realpath(filehandle)))
 
+def gen_dirs(directories):
+    """Generate directories, if they not already exist"""
+    for directory in directories:
+        if not os.path.exists(directory):
+            try:
+                os.makedirs(directory)
+            except OSError:
+                print(f"Error: Creation of directory {directory} failed.")
+
 def replace_line_in_file(pathname, pattern, subst):
     """Replace pattern in line with subst"""
     # Create temp file
