@@ -15,8 +15,8 @@ def read_tdms(pathname, keys, groupname):
     Returns:
         numpy array containing a column for each channel
     """
-    original_file = TdmsFile(pathname)
-    return [original_file.object(groupname, key).data for key in keys]
+    tdms_file = TdmsFile.read(pathname)
+    return [tdms_file[groupname][key].data for key in keys]
 
 def write_tdms(data, keys, groupname, pathname):
     """
