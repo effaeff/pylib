@@ -98,7 +98,7 @@ def dtw(series1, series2, dist_fn, win=None):
     for idx, __ in enumerate(series1):
         for jdx, __ in enumerate(series2):
             if win is None or (max(0, idx - win[0]) <= jdx <= min(len(series2), idx + win[1])):
-                acc_dist[idx, jdx] = dist_fn(series1[idx], series2[jdx])
+                acc_dist[idx, jdx] = dist_fn(series1[idx] - series2[jdx])
 
     # Calculate accumulated costs
     jrange = range(len(series2))
