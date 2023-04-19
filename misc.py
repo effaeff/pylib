@@ -70,6 +70,13 @@ def replace_line_in_file(pathname, pattern, subst):
     # Move new file
     move(abs_path, pathname)
 
+def scale_value(value, source_range, target_range):
+    """Scale given value from source range to target range"""
+    return (
+        (value - source_range[0]) / (source_range[1] - source_range[0])
+        * (target_range[1] - target_range[0]) + target_range[0]
+    )
+
 def lazy_property(function):
     """Decorating function as lazy loading property"""
     attribute = '_cache_' + function.__name__
