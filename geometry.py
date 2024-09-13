@@ -196,3 +196,30 @@ def max_rectangle(grid):
 
     return min_index, max_index
 
+def ar_h(u):
+    if u >= 1: return np.pi
+    elif u > -1: return np.pi - np.arccos(u) + u * np.sqrt(1 - u**2)
+    else: return 0
+
+def ar_quad(u, v):
+    if u**2 + v**2 <= 1: return (ar_h(u) + ar_h(v))/2 - np.pi/4 + u*v
+    elif u <= -1 or v <= -1: return 0
+    elif u >= 1 and v >= 1: return np.pi
+    elif u >= 1: return ar_h(v)
+    elif v >= 1: return ar_h(u)
+    elif u >= 0 and v >= 0: return ar_h(u) + ar_h(v) - np.pi
+    elif u >= 0 and v <= 0: return ar_h(v)
+    elif u <= 0 and v >= 0: return ar_h(u)
+    else: return 0
+
+def ar_rect(x0, y0, x1, y1):
+    return ar_quad(x0, y0) + ar_quad(x1, y1) - ar_quad(x0, y1) - ar_quad(x1, y0)
+
+def ar_area(r, xc, yc, x0, y0, x1, y1):
+    """
+    Calculate the intersection area between a circle with center point (xc, yc) and radius r
+    and a rectangle with the minimum and maximum corner points (x0, y0) and (x1, y2).
+    """
+    return r**2 * ar_rect((x0-xc)/r, (y0-yc)/r, (x1-xc)/r, (y1-yc)/r)
+
+
