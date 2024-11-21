@@ -9,6 +9,7 @@ from matplotlib.ticker import PercentFormatter
 import matplotlib.ticker as mticker
 
 def hist(data, filename, nb_bins='fd', xlabel='Data', fontsize=14, figsize=(7, 4), save=False):
+CM_INCH = 1/2.54  # centimeters in inches
     """Plot histogram of data"""
     __, axs = plt.subplots(1, 1, figsize=figsize)
     bins, __, patches = axs.hist(data, bins=nb_bins)
