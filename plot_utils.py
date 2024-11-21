@@ -53,12 +53,12 @@ def modify_axis(axs, xtick_label, ytick_label, xoffset, yoffset, fontsize, grid=
     axs.spines['right'].set_visible(False)
     bottom = False
     left = False
-    if xtick_label != '':
-        bottom = True
-        axs.get_xaxis().tick_bottom()
-    if ytick_label != '':
-        left = True
-        axs.get_yaxis().tick_left()
+    # if xtick_label != '':
+    bottom = True
+    axs.get_xaxis().tick_bottom()
+    # if ytick_label != '':
+    left = True
+    axs.get_yaxis().tick_left()
     axs.tick_params(
         axis="both",
         which="both",
@@ -70,25 +70,25 @@ def modify_axis(axs, xtick_label, ytick_label, xoffset, yoffset, fontsize, grid=
         labelleft=left
     )
     if grid:
-        axs.grid(True, linewidth=0.4, zorder=0, linestyle='-', which='major')
+        axs.grid(True, linewidth=0.4, zorder=-100, linestyle='-', which='major')
+    labels = axs.get_xticklabels()
     if xtick_label != '':
-        labels = axs.get_xticklabels()
         labels[xoffset] = xtick_label
-        # axs.xaxis.set_major_locator(mticker.MaxNLocator(max_x))
-        ticks_loc = axs.get_xticks().tolist()
-        axs.xaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
-        axs.set_xticklabels(labels)
-        for label in axs.get_xticklabels():
-            label.set_fontsize(fontsize)
+    # axs.xaxis.set_major_locator(mticker.MaxNLocator(max_x))
+    ticks_loc = axs.get_xticks().tolist()
+    axs.xaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
+    axs.set_xticklabels(labels)
+    for label in axs.get_xticklabels():
+        label.set_fontsize(fontsize)
+    labels = axs.get_yticklabels()
     if ytick_label != '':
-        labels = axs.get_yticklabels()
         labels[yoffset] = ytick_label
-        # axs.yaxis.set_major_locator(mticker.MaxNLocator(max_y))
-        ticks_loc = axs.get_yticks().tolist()
-        axs.yaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
-        axs.set_yticklabels(labels)
-        for label in axs.get_yticklabels():
-            label.set_fontsize(fontsize)
+    # axs.yaxis.set_major_locator(mticker.MaxNLocator(max_y))
+    ticks_loc = axs.get_yticks().tolist()
+    axs.yaxis.set_major_locator(mticker.FixedLocator(ticks_loc))
+    axs.set_yticklabels(labels)
+    for label in axs.get_yticklabels():
+        label.set_fontsize(fontsize)
     return axs
 
 class InteractivePlotter:
