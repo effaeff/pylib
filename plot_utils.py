@@ -8,25 +8,25 @@ from matplotlib import colors
 from matplotlib.ticker import PercentFormatter
 import matplotlib.ticker as mticker
 
-def hist(data, filename, nb_bins='fd', xlabel='Data', fontsize=14, figsize=(7, 4), save=False):
 CM_INCH = 1/2.54  # centimeters in inches
+def hist(data, filename=None, nb_bins='fd', xlabel='Data', fontsize=14, figsize=(7, 4), save=False):
     """Plot histogram of data"""
-    __, axs = plt.subplots(1, 1, figsize=figsize)
-    bins, __, patches = axs.hist(data, bins=nb_bins)
+    __, axs = plt.subplots(1, 1, figsize=figsize, tight_layout=True)
+    N, bins, patches = axs.hist(data, bins=nb_bins)
     # We'll color code by height, but you could use any scalar
-    fracs = bins / bins.max()
+    fracs = N / N.max()
 
     # we need to normalize the data to 0..1 for the full range of the colormap
     norm = colors.Normalize(fracs.min(), fracs.max())
 
     # Now, we'll loop through our objects and set the color of each accordingly
     for thisfrac, thispatch in zip(fracs, patches):
-        cmap = matplotlib.cm.get_cmap("viridis")
+        cmap = matplotlib.cm.get_cmap("inferno")
         color = cmap(norm(thisfrac))
         thispatch.set_facecolor(color)
     axs.set_xlabel(xlabel, fontsize=fontsize)
     axs.set_ylabel('Distribution', fontsize=fontsize)
-    axs.yaxis.set_major_formatter(PercentFormatter(xmax=np.sum(bins)))
+    axs.yaxis.set_major_formatter(PercentFormatter(xmax=np.sum(N)))
     axs.spines.right.set_visible(False)
     axs.spines.top.set_visible(False)
 
@@ -40,7 +40,6 @@ CM_INCH = 1/2.54  # centimeters in inches
     if save:
         plt.savefig(filename, dpi=600, bbox_inches='tight')
     else:
-        plt.tight_layout()
         plt.show()
         plt.close()
 
